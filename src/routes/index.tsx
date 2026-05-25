@@ -7,7 +7,7 @@ import {
 import { Card } from "@/components/AppShell";
 import { useLocalState } from "@/lib/storage";
 
-export const Route = createFileRoute("/_app/")({
+export const Route = createFileRoute("/")({
   component: Home,
 });
 
