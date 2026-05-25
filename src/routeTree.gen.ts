@@ -9,8 +9,74 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VisaoAnualRouteImport } from './routes/visao-anual'
+import { Route as SaudeRouteImport } from './routes/saude'
+import { Route as RotinaRouteImport } from './routes/rotina'
+import { Route as ReflexoesRouteImport } from './routes/reflexoes'
+import { Route as MetasRouteImport } from './routes/metas'
+import { Route as MesesRouteImport } from './routes/meses'
+import { Route as HabitosRouteImport } from './routes/habitos'
+import { Route as FinanceiroRouteImport } from './routes/financeiro'
+import { Route as EstudosRouteImport } from './routes/estudos'
+import { Route as DiarioRouteImport } from './routes/diario'
+import { Route as BrainDumpRouteImport } from './routes/brain-dump'
 import { Route as IndexRouteImport } from './routes/index'
 
+const VisaoAnualRoute = VisaoAnualRouteImport.update({
+  id: '/visao-anual',
+  path: '/visao-anual',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SaudeRoute = SaudeRouteImport.update({
+  id: '/saude',
+  path: '/saude',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RotinaRoute = RotinaRouteImport.update({
+  id: '/rotina',
+  path: '/rotina',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReflexoesRoute = ReflexoesRouteImport.update({
+  id: '/reflexoes',
+  path: '/reflexoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetasRoute = MetasRouteImport.update({
+  id: '/metas',
+  path: '/metas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MesesRoute = MesesRouteImport.update({
+  id: '/meses',
+  path: '/meses',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HabitosRoute = HabitosRouteImport.update({
+  id: '/habitos',
+  path: '/habitos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinanceiroRoute = FinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstudosRoute = EstudosRouteImport.update({
+  id: '/estudos',
+  path: '/estudos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DiarioRoute = DiarioRouteImport.update({
+  id: '/diario',
+  path: '/diario',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BrainDumpRoute = BrainDumpRouteImport.update({
+  id: '/brain-dump',
+  path: '/brain-dump',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +85,186 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/brain-dump': typeof BrainDumpRoute
+  '/diario': typeof DiarioRoute
+  '/estudos': typeof EstudosRoute
+  '/financeiro': typeof FinanceiroRoute
+  '/habitos': typeof HabitosRoute
+  '/meses': typeof MesesRoute
+  '/metas': typeof MetasRoute
+  '/reflexoes': typeof ReflexoesRoute
+  '/rotina': typeof RotinaRoute
+  '/saude': typeof SaudeRoute
+  '/visao-anual': typeof VisaoAnualRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/brain-dump': typeof BrainDumpRoute
+  '/diario': typeof DiarioRoute
+  '/estudos': typeof EstudosRoute
+  '/financeiro': typeof FinanceiroRoute
+  '/habitos': typeof HabitosRoute
+  '/meses': typeof MesesRoute
+  '/metas': typeof MetasRoute
+  '/reflexoes': typeof ReflexoesRoute
+  '/rotina': typeof RotinaRoute
+  '/saude': typeof SaudeRoute
+  '/visao-anual': typeof VisaoAnualRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/brain-dump': typeof BrainDumpRoute
+  '/diario': typeof DiarioRoute
+  '/estudos': typeof EstudosRoute
+  '/financeiro': typeof FinanceiroRoute
+  '/habitos': typeof HabitosRoute
+  '/meses': typeof MesesRoute
+  '/metas': typeof MetasRoute
+  '/reflexoes': typeof ReflexoesRoute
+  '/rotina': typeof RotinaRoute
+  '/saude': typeof SaudeRoute
+  '/visao-anual': typeof VisaoAnualRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/brain-dump'
+    | '/diario'
+    | '/estudos'
+    | '/financeiro'
+    | '/habitos'
+    | '/meses'
+    | '/metas'
+    | '/reflexoes'
+    | '/rotina'
+    | '/saude'
+    | '/visao-anual'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/brain-dump'
+    | '/diario'
+    | '/estudos'
+    | '/financeiro'
+    | '/habitos'
+    | '/meses'
+    | '/metas'
+    | '/reflexoes'
+    | '/rotina'
+    | '/saude'
+    | '/visao-anual'
+  id:
+    | '__root__'
+    | '/'
+    | '/brain-dump'
+    | '/diario'
+    | '/estudos'
+    | '/financeiro'
+    | '/habitos'
+    | '/meses'
+    | '/metas'
+    | '/reflexoes'
+    | '/rotina'
+    | '/saude'
+    | '/visao-anual'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BrainDumpRoute: typeof BrainDumpRoute
+  DiarioRoute: typeof DiarioRoute
+  EstudosRoute: typeof EstudosRoute
+  FinanceiroRoute: typeof FinanceiroRoute
+  HabitosRoute: typeof HabitosRoute
+  MesesRoute: typeof MesesRoute
+  MetasRoute: typeof MetasRoute
+  ReflexoesRoute: typeof ReflexoesRoute
+  RotinaRoute: typeof RotinaRoute
+  SaudeRoute: typeof SaudeRoute
+  VisaoAnualRoute: typeof VisaoAnualRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/visao-anual': {
+      id: '/visao-anual'
+      path: '/visao-anual'
+      fullPath: '/visao-anual'
+      preLoaderRoute: typeof VisaoAnualRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saude': {
+      id: '/saude'
+      path: '/saude'
+      fullPath: '/saude'
+      preLoaderRoute: typeof SaudeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/rotina': {
+      id: '/rotina'
+      path: '/rotina'
+      fullPath: '/rotina'
+      preLoaderRoute: typeof RotinaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/reflexoes': {
+      id: '/reflexoes'
+      path: '/reflexoes'
+      fullPath: '/reflexoes'
+      preLoaderRoute: typeof ReflexoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metas': {
+      id: '/metas'
+      path: '/metas'
+      fullPath: '/metas'
+      preLoaderRoute: typeof MetasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/meses': {
+      id: '/meses'
+      path: '/meses'
+      fullPath: '/meses'
+      preLoaderRoute: typeof MesesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/habitos': {
+      id: '/habitos'
+      path: '/habitos'
+      fullPath: '/habitos'
+      preLoaderRoute: typeof HabitosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/financeiro': {
+      id: '/financeiro'
+      path: '/financeiro'
+      fullPath: '/financeiro'
+      preLoaderRoute: typeof FinanceiroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estudos': {
+      id: '/estudos'
+      path: '/estudos'
+      fullPath: '/estudos'
+      preLoaderRoute: typeof EstudosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/diario': {
+      id: '/diario'
+      path: '/diario'
+      fullPath: '/diario'
+      preLoaderRoute: typeof DiarioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brain-dump': {
+      id: '/brain-dump'
+      path: '/brain-dump'
+      fullPath: '/brain-dump'
+      preLoaderRoute: typeof BrainDumpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +277,28 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BrainDumpRoute: BrainDumpRoute,
+  DiarioRoute: DiarioRoute,
+  EstudosRoute: EstudosRoute,
+  FinanceiroRoute: FinanceiroRoute,
+  HabitosRoute: HabitosRoute,
+  MesesRoute: MesesRoute,
+  MetasRoute: MetasRoute,
+  ReflexoesRoute: ReflexoesRoute,
+  RotinaRoute: RotinaRoute,
+  SaudeRoute: SaudeRoute,
+  VisaoAnualRoute: VisaoAnualRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
