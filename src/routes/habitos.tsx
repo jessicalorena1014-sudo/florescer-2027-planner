@@ -26,13 +26,13 @@ function Habitos() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {habits.map((h) => <HabitTracker key={h.key} {...h} />)}
+        {habits.map((h) => <HabitTracker key={h.key} habitKey={h.key} icon={h.icon} label={h.label} />)}
       </div>
     </div>
   );
 }
 
-function HabitTracker({ icon: Icon, label, key: k }: { icon: React.ComponentType<{ className?: string }>; label: string; key: string }) {
+function HabitTracker({ icon: Icon, label, habitKey: k }: { icon: React.ComponentType<{ className?: string }>; label: string; habitKey: string }) {
   const [done, setDone] = useLocalState<Record<string, boolean>>(`habit:${k}`, {});
   const today = new Date();
   const days = Array.from({ length: 30 }).map((_, i) => {

@@ -18,13 +18,13 @@ function Reflexoes() {
       <PageHeader eyebrow="Pause" title="Reflexões" subtitle="Quatro perguntas para se reencontrar." icon={Sparkles} />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        {prompts.map((p) => <Prompt key={p.key} {...p} />)}
+        {prompts.map((p) => <Prompt key={p.key} promptKey={p.key} label={p.label} icon={p.icon} placeholder={p.placeholder} />)}
       </div>
     </div>
   );
 }
 
-function Prompt({ key: k, label, icon: Icon, placeholder }: { key: string; label: string; icon: React.ComponentType<{ className?: string }>; placeholder: string }) {
+function Prompt({ promptKey: k, label, icon: Icon, placeholder }: { promptKey: string; label: string; icon: React.ComponentType<{ className?: string }>; placeholder: string }) {
   const [v, setV] = useLocalState<string>(`reflexao:${k}`, "");
   return (
     <Card className="min-h-[260px] flex flex-col">
