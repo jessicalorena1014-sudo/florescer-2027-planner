@@ -4,6 +4,7 @@ import {
   CalendarDays, ChevronLeft, ChevronRight, Plus, Trash2, Check, Search, X, Clock, Repeat, Download,
 } from "lucide-react";
 import { PageHeader, Card } from "@/components/AppShell";
+import { ContextualTip } from "@/components/ContextualTip";
 import { NotificationsCard } from "@/components/NotificationsCard";
 import { exportMonthSummary } from "@/lib/exportPdf";
 import {
@@ -48,6 +49,11 @@ function Agenda() {
         subtitle="Organize seus dias com leveza — tudo salvo automaticamente."
         icon={CalendarDays}
       />
+
+      <ContextualTip tipKey="agenda" title="Comece pelo +">
+        Toque em um dia e use <strong>+ Novo</strong> para criar um compromisso. Você pode escolher recorrência diária, semanal ou mensal.
+      </ContextualTip>
+
 
       {/* Toolbar */}
       <div className="flex flex-wrap gap-3 items-center justify-between">
