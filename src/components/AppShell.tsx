@@ -5,6 +5,8 @@ import {
   BookOpen, ListChecks, Notebook, Brain, Sparkles, Moon, Sun, Menu, X,
 } from "lucide-react";
 import { useTheme } from "@/lib/storage";
+import { useAgenda } from "@/lib/agenda";
+import { useNotifSettings, useScheduleNotifications } from "@/lib/notifications";
 
 const nav = [
   { to: "/", label: "Início", icon: Home },
