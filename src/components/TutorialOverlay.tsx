@@ -3,7 +3,7 @@ import { CalendarDays, Sprout, Flower2, Sparkles, ChevronRight, ChevronLeft, X }
 import { useTutorial } from "@/lib/tutorial";
 
 type Slide = {
-  icon: React.ComponentType<{ className?: string }>;
+  icon: React.ComponentType<{ className?: string; strokeWidth?: number }>;
   eyebrow: string;
   title: string;
   text: string;
