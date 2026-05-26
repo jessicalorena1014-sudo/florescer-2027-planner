@@ -107,6 +107,10 @@ function Agenda() {
         )}
       </Card>
 
+      <NotificationsCard />
+
+
+
       {filtered ? (
         <SearchResults
           results={filtered}
