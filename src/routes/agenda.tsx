@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
-  CalendarDays, ChevronLeft, ChevronRight, Plus, Trash2, Check, Search, X, Clock, Repeat,
+  CalendarDays, ChevronLeft, ChevronRight, Plus, Trash2, Check, Search, X, Clock, Repeat, Download,
 } from "lucide-react";
 import { PageHeader, Card } from "@/components/AppShell";
 import { NotificationsCard } from "@/components/NotificationsCard";
+import { exportMonthSummary } from "@/lib/exportPdf";
 import {
   useAgenda, ymd, fromYmd, isToday, eventsOn, isDone, toggleDone,
   type AgendaEvent, type Recurrence, type EventKind,
@@ -65,6 +66,13 @@ function Agenda() {
             className="ml-2 px-3 h-9 rounded-full text-xs uppercase tracking-[0.2em] bg-card border border-border hover:bg-secondary"
           >
             Hoje
+          </button>
+          <button
+            onClick={() => exportMonthSummary(events, cursor)}
+            title="Exportar resumo do mês em PDF"
+            className="px-3 h-9 rounded-full text-xs uppercase tracking-[0.2em] bg-card border border-border hover:bg-secondary flex items-center gap-1.5"
+          >
+            <Download className="h-3.5 w-3.5" /> PDF
           </button>
         </div>
 
