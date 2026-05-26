@@ -3,9 +3,12 @@ import { Link } from "@tanstack/react-router";
 import {
   Droplets, Flame, Smile, Target, Quote, Trophy, NotebookPen,
   BookOpen, Wallet, HeartPulse, TrendingUp, Plus, Minus, ChevronRight,
+  CalendarDays, Check,
 } from "lucide-react";
 import { Card } from "@/components/AppShell";
 import { useLocalState } from "@/lib/storage";
+import { useAgenda, eventsOn, isDone, toggleDone, ymd, fromYmd } from "@/lib/agenda";
+import { JardimFlorescer } from "@/components/JardimFlorescer";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -21,6 +24,13 @@ const phrases = [
 
 const moods = ["😊", "🌷", "😌", "✨", "🌙", "🥰"];
 
+function greeting(h: number) {
+  if (h < 5) return "Boa madrugada";
+  if (h < 12) return "Bom dia";
+  if (h < 18) return "Boa tarde";
+  return "Boa noite";
+}
+
 function Home() {
   const today = new Date();
   const dateStr = today.toLocaleDateString("pt-BR", {
@@ -32,6 +42,13 @@ function Home() {
   const [mood, setMood] = useLocalState<string>("home:mood", "🌷");
   const [streak] = useLocalState<number>("habits:streak", 12);
   const [mainGoal] = useLocalState<string>("home:mainGoal", "Florescer com intenção em 2027");
+  const [events, setEvents] = useAgenda();
+  const todayEvents = eventsOn(events, today);
+  const todayKey = ymd(today);
+  const upcoming = events
+    .filter((e) => e.date > todayKey && e.recurrence === "none")
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .slice(0, 4);
 
   const monthProgress = Math.round(
     ((today.getDate() / new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate()) * 100)
@@ -48,7 +65,7 @@ function Home() {
             {dateStr}
           </div>
           <h1 className="font-serif text-4xl sm:text-6xl leading-[1.05] mt-3 max-w-2xl">
-            Bom dia, <span className="italic text-[var(--gold)]">florescente</span>.
+            {greeting(today.getHours())}, <span className="italic text-[var(--gold)]">florescente</span>.
           </h1>
           <p className="mt-4 max-w-md text-muted-foreground flex items-start gap-2">
             <Quote className="h-4 w-4 mt-1 shrink-0" />
@@ -56,6 +73,61 @@ function Home() {
           </p>
         </div>
       </div>
+
+      {/* Hoje + Jardim */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <Card className="lg:col-span-2">
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+              <CalendarDays className="h-3.5 w-3.5" /> Prioridades de hoje
+            </div>
+            <Link to="/agenda" className="text-xs text-[var(--gold)] hover:underline">Ver agenda →</Link>
+          </div>
+          {todayEvents.length === 0 ? (
+            <div className="text-sm italic text-muted-foreground py-6 text-center">
+              Nada agendado — comece pela <Link to="/agenda" className="underline">Agenda</Link>.
+            </div>
+          ) : (
+            <div className="space-y-1.5">
+              {todayEvents.slice(0, 6).map((ev) => {
+                const done = isDone(ev, today);
+                return (
+                  <button
+                    key={ev.id}
+                    onClick={() => setEvents(events.map((e) => e.id === ev.id ? toggleDone(e, today) : e))}
+                    className="w-full flex items-center gap-3 rounded-xl px-3 py-2 hover:bg-secondary/60 text-left transition"
+                  >
+                    <span className={`h-5 w-5 rounded-md border flex items-center justify-center ${done ? "bg-[var(--gold)] border-[var(--gold)] text-primary-foreground" : "border-border bg-card"}`}>
+                      {done && <Check className="h-3 w-3" />}
+                    </span>
+                    <span className={`flex-1 text-sm ${done ? "line-through text-muted-foreground" : ""}`}>
+                      {ev.time && <span className="text-muted-foreground mr-2">{ev.time}</span>}{ev.title}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+          {upcoming.length > 0 && (
+            <div className="mt-5 pt-4 border-t border-border">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-2">Próximos</div>
+              <div className="space-y-1">
+                {upcoming.map((e) => (
+                  <Link key={e.id} to="/agenda" className="flex items-center gap-3 text-sm rounded-xl px-2 py-1.5 hover:bg-secondary/60">
+                    <span className="text-xs text-muted-foreground w-20 shrink-0">
+                      {fromYmd(e.date).toLocaleDateString("pt-BR", { day: "2-digit", month: "short" })}
+                    </span>
+                    <span className="truncate">{e.title}</span>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
+        </Card>
+
+        <JardimFlorescer />
+      </div>
+
 
       {/* Widgets grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-6 gap-4">

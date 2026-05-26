@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Heart, Battery, Smile, Moon, Droplets, Apple, Stethoscope } from "lucide-react";
-import { PageHeader, Card, CheckList, ProgressBar } from "@/components/Primitives";
+import { Heart, Battery, Smile, Moon, Droplets, Apple, Stethoscope, Sparkles, HandHeart } from "lucide-react";
+import { PageHeader, Card, CheckList, TextField } from "@/components/Primitives";
 import { useLocalState } from "@/lib/storage";
 
 export const Route = createFileRoute("/saude")({ component: Saude });
@@ -10,6 +10,7 @@ function Saude() {
   const [humor, setHumor] = useLocalState<string>("saude:humor", "😊");
   const [sono, setSono] = useLocalState<number>("saude:sono", 7);
   const [agua, setAgua] = useLocalState<number>("saude:agua", 5);
+  const [afirmacao, setAfirmacao] = useLocalState<string>("saude:afirmacao", "Eu floresço a cada dia.");
 
   return (
     <div className="space-y-6">
@@ -68,6 +69,34 @@ function Saude() {
           <CheckList storageKey="saude:consultas" placeholder="Próximas consultas e exames..." />
         </Card>
       </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <Card className="gradient-cream">
+          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+            <Sparkles className="h-3.5 w-3.5" /> Afirmação do dia
+          </div>
+          <TextField
+            value={afirmacao}
+            onChange={setAfirmacao}
+            multiline
+            rows={3}
+            className="font-serif text-2xl italic text-center"
+          />
+        </Card>
+        <Card>
+          <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+            <HandHeart className="h-3.5 w-3.5" /> Gratidão
+          </div>
+          <CheckList storageKey="saude:gratidao" placeholder="Sou grata por..." />
+        </Card>
+      </div>
+
+      <Card>
+        <div className="flex items-center gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground mb-3">
+          <Heart className="h-3.5 w-3.5" /> Autocuidado realizado
+        </div>
+        <CheckList storageKey="saude:autocuidado" placeholder="Banho relaxante, leitura, caminhada..." />
+      </Card>
     </div>
   );
 }

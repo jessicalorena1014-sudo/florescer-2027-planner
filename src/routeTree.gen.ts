@@ -20,6 +20,7 @@ import { Route as FinanceiroRouteImport } from './routes/financeiro'
 import { Route as EstudosRouteImport } from './routes/estudos'
 import { Route as DiarioRouteImport } from './routes/diario'
 import { Route as BrainDumpRouteImport } from './routes/brain-dump'
+import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
 
 const VisaoAnualRoute = VisaoAnualRouteImport.update({
@@ -77,6 +78,11 @@ const BrainDumpRoute = BrainDumpRouteImport.update({
   path: '/brain-dump',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AgendaRoute = AgendaRouteImport.update({
+  id: '/agenda',
+  path: '/agenda',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -85,6 +91,7 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
   '/brain-dump': typeof BrainDumpRoute
   '/diario': typeof DiarioRoute
   '/estudos': typeof EstudosRoute
@@ -99,6 +106,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
   '/brain-dump': typeof BrainDumpRoute
   '/diario': typeof DiarioRoute
   '/estudos': typeof EstudosRoute
@@ -114,6 +122,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agenda': typeof AgendaRoute
   '/brain-dump': typeof BrainDumpRoute
   '/diario': typeof DiarioRoute
   '/estudos': typeof EstudosRoute
@@ -130,6 +139,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/agenda'
     | '/brain-dump'
     | '/diario'
     | '/estudos'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/agenda'
     | '/brain-dump'
     | '/diario'
     | '/estudos'
@@ -158,6 +169,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/agenda'
     | '/brain-dump'
     | '/diario'
     | '/estudos'
@@ -173,6 +185,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgendaRoute: typeof AgendaRoute
   BrainDumpRoute: typeof BrainDumpRoute
   DiarioRoute: typeof DiarioRoute
   EstudosRoute: typeof EstudosRoute
@@ -265,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BrainDumpRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/agenda': {
+      id: '/agenda'
+      path: '/agenda'
+      fullPath: '/agenda'
+      preLoaderRoute: typeof AgendaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -277,6 +297,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgendaRoute: AgendaRoute,
   BrainDumpRoute: BrainDumpRoute,
   DiarioRoute: DiarioRoute,
   EstudosRoute: EstudosRoute,
