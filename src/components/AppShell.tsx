@@ -8,6 +8,7 @@ import { useTheme } from "@/lib/storage";
 
 const nav = [
   { to: "/", label: "Início", icon: Home },
+  { to: "/agenda", label: "Agenda", icon: CalendarDays },
   { to: "/visao-anual", label: "Visão Anual", icon: Calendar },
   { to: "/meses", label: "Meses", icon: CalendarDays },
   { to: "/metas", label: "Metas", icon: Target },
@@ -18,6 +19,14 @@ const nav = [
   { to: "/rotina", label: "Rotina", icon: ListChecks },
   { to: "/diario", label: "Diário", icon: Notebook },
   { to: "/brain-dump", label: "Brain Dump", icon: Brain },
+  { to: "/reflexoes", label: "Reflexões", icon: Sparkles },
+] as const;
+
+const bottomNav = [
+  { to: "/", label: "Hoje", icon: Home },
+  { to: "/agenda", label: "Agenda", icon: CalendarDays },
+  { to: "/metas", label: "Metas", icon: Target },
+  { to: "/habitos", label: "Hábitos", icon: Sprout },
   { to: "/reflexoes", label: "Reflexões", icon: Sparkles },
 ] as const;
 
