@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Heart, Battery, Smile, Moon, Droplets, Apple, Stethoscope } from "lucide-react";
+import { Heart, Battery, Smile, Moon, Droplets, Apple, Stethoscope, Sparkles, HandHeart } from "lucide-react";
 import { PageHeader, Card, CheckList, ProgressBar } from "@/components/Primitives";
+import { TextField } from "@/components/Primitives";
 import { useLocalState } from "@/lib/storage";
 
 export const Route = createFileRoute("/saude")({ component: Saude });
@@ -10,6 +11,7 @@ function Saude() {
   const [humor, setHumor] = useLocalState<string>("saude:humor", "😊");
   const [sono, setSono] = useLocalState<number>("saude:sono", 7);
   const [agua, setAgua] = useLocalState<number>("saude:agua", 5);
+  const [afirmacao, setAfirmacao] = useLocalState<string>("saude:afirmacao", "Eu floresço a cada dia.");
 
   return (
     <div className="space-y-6">
