@@ -106,11 +106,15 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           <aside className="absolute right-0 top-0 h-full w-72 bg-sidebar shadow-petal flex flex-col animate-bloom">
             <div className="flex items-center justify-between p-4 border-b border-border">
               <BrandHeader compact />
-              <button onClick={() => setOpen(false)} className="p-2 rounded-full hover:bg-secondary">
+              <button
+                onClick={() => setOpen(false)}
+                aria-label="Fechar menu"
+                className="h-11 w-11 grid place-items-center rounded-full hover:bg-secondary active:scale-95 transition"
+              >
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <nav className="flex-1 overflow-y-auto p-3 space-y-0.5">
+            <nav aria-label="Menu" className="flex-1 overflow-y-auto p-3 space-y-1">
               {nav.map(({ to, label, icon: Icon }) => {
                 const active = to === "/" ? path === "/" : path.startsWith(to);
                 return (
@@ -118,10 +122,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                     key={to}
                     to={to}
                     onClick={() => setOpen(false)}
-                    className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-sm
-                      ${active ? "bg-card text-foreground shadow-soft" : "text-sidebar-foreground/80"}`}
+                    aria-current={active ? "page" : undefined}
+                    className={`flex items-center gap-3 rounded-2xl px-4 py-3 text-[15px] active:scale-[0.99] transition
+                      ${active ? "bg-card text-foreground shadow-soft" : "text-sidebar-foreground/80 hover:bg-sidebar-accent/60"}`}
                   >
-                    <Icon className="h-4 w-4" strokeWidth={1.5} />
+                    <Icon className={`h-4 w-4 ${active ? "text-[var(--gold)]" : ""}`} strokeWidth={1.5} />
                     {label}
                   </Link>
                 );
