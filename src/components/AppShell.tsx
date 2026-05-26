@@ -2,11 +2,12 @@ import { Link, useRouterState } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   Home, Calendar, CalendarDays, Target, Sprout, Wallet, Heart,
-  BookOpen, ListChecks, Notebook, Brain, Sparkles, Moon, Sun, Menu, X,
+  BookOpen, ListChecks, Notebook, Brain, Sparkles, Moon, Sun, Menu, X, HelpCircle,
 } from "lucide-react";
 import { useTheme } from "@/lib/storage";
 import { useAgenda } from "@/lib/agenda";
 import { useNotifSettings, useScheduleNotifications } from "@/lib/notifications";
+import { TutorialOverlay } from "@/components/TutorialOverlay";
 
 const nav = [
   { to: "/", label: "Início", icon: Home },
@@ -22,6 +23,7 @@ const nav = [
   { to: "/diario", label: "Diário", icon: Notebook },
   { to: "/brain-dump", label: "Brain Dump", icon: Brain },
   { to: "/reflexoes", label: "Reflexões", icon: Sparkles },
+  { to: "/como-usar", label: "Como usar", icon: HelpCircle },
 ] as const;
 
 const bottomNav = [
