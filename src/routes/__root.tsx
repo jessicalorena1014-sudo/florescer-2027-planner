@@ -76,16 +76,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { title: "Planner Florescer 2027" },
       { name: "description", content: "Planner digital feminino e premium — floresça com intenção em 2027." },
       { name: "author", content: "Florescer" },
+      { name: "theme-color", content: "#f7f1e8" },
+      { name: "apple-mobile-web-app-capable", content: "yes" },
+      { name: "apple-mobile-web-app-status-bar-style", content: "default" },
+      { name: "apple-mobile-web-app-title", content: "Florescer" },
       { property: "og:title", content: "Planner Florescer 2027" },
       { property: "og:description", content: "Seu planner digital delicado e organizado." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "manifest", href: "/manifest.webmanifest" },
+      { rel: "icon", type: "image/png", sizes: "192x192", href: "/icon-192.png" },
+      { rel: "icon", type: "image/png", sizes: "512x512", href: "/icon-512.png" },
+      { rel: "apple-touch-icon", href: "/icon-192.png" },
     ],
   }),
   shellComponent: RootShell,
@@ -110,6 +115,11 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  if (typeof window !== "undefined") {
+    // Register PWA service worker (guarded against preview/iframe contexts).
+    import("@/lib/pwa").then((m) => m.registerPWA());
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
