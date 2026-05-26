@@ -1,7 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Heart, Battery, Smile, Moon, Droplets, Apple, Stethoscope, Sparkles, HandHeart } from "lucide-react";
-import { PageHeader, Card, CheckList, ProgressBar } from "@/components/Primitives";
-import { TextField } from "@/components/Primitives";
+import { PageHeader, Card, CheckList, TextField } from "@/components/Primitives";
 import { useLocalState } from "@/lib/storage";
 
 export const Route = createFileRoute("/saude")({ component: Saude });
