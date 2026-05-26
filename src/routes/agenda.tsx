@@ -123,7 +123,7 @@ function Agenda() {
                 selected={selected}
                 events={events}
                 onSelect={(d) => { setSelected(d); }}
-                onOpenDay={(d) => { setSelected(d); setView("day"); }}
+                onOpenDay={(d) => { setSelected(d); setCursor(d); setView("day"); }}
               />
             )}
             {view === "week" && (
