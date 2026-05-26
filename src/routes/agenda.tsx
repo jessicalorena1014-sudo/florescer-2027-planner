@@ -336,7 +336,7 @@ function DayList({ date, events, onToggle, onEdit, onRemove, large = false }: {
     return <div className="text-sm italic text-muted-foreground py-6 text-center">Nada agendado neste dia.</div>;
   }
   return (
-    <div className={`space-y-${large ? "2" : "1.5"}`}>
+    <div className={large ? "space-y-2" : "space-y-1.5"}>
       {list.map((ev) => {
         const done = isDone(ev, date);
         return (
