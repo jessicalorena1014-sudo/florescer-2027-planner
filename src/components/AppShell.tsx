@@ -114,11 +114,32 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      <main className="flex-1 min-w-0 pt-16 md:pt-0">
+      <main className="flex-1 min-w-0 pt-16 md:pt-0 pb-20 md:pb-0">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-10 animate-bloom">
           {children}
         </div>
       </main>
+
+      {/* Mobile bottom nav */}
+      <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-background/90 backdrop-blur border-t border-border">
+        <div className="grid grid-cols-5 px-1 py-1.5 safe-area-pb">
+          {bottomNav.map(({ to, label, icon: Icon }) => {
+            const active = to === "/" ? path === "/" : path.startsWith(to);
+            return (
+              <Link
+                key={to}
+                to={to}
+                className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl transition ${
+                  active ? "text-[var(--gold)]" : "text-muted-foreground"
+                }`}
+              >
+                <Icon className="h-5 w-5" strokeWidth={1.6} />
+                <span className="text-[10px] font-medium">{label}</span>
+              </Link>
+            );
+          })}
+        </div>
+      </nav>
     </div>
   );
 }
