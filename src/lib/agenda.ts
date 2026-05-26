@@ -41,16 +41,32 @@ export function isToday(d: Date) {
 
 export function occursOn(ev: AgendaEvent, date: Date): boolean {
   const start = fromYmd(ev.date);
-  if (date < new Date(start.getFullYear(), start.getMonth(), start.getDate())) return false;
+  // Normalize both sides to midnight-local and compare as ymd strings so that
+  // any time component on `date` never causes off-by-one issues.
+  const dKey = ymd(date);
+  const sKey = ymd(start);
+  if (dKey < sKey) return false;
   switch (ev.recurrence) {
     case "none":
-      return sameDay(start, date);
+      return dKey === sKey;
     case "daily":
       return true;
     case "weekly":
+      // Same weekday as the start date, every 7 days.
       return start.getDay() === date.getDay();
-    case "monthly":
-      return start.getDate() === date.getDate();
+    case "monthly": {
+      // Same day-of-month as the start date. For months that don't have that
+      // day (e.g. start on the 31st, February only has 28/29), fall back to
+      // the last day of the target month so the event still occurs once.
+      const startDay = start.getDate();
+      const lastDayOfMonth = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0,
+      ).getDate();
+      const targetDay = Math.min(startDay, lastDayOfMonth);
+      return date.getDate() === targetDay;
+    }
   }
 }
 
