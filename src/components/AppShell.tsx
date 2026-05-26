@@ -41,7 +41,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   useScheduleNotifications(events, notifSettings);
 
   return (
-    <div className="min-h-screen flex w-full bg-background bg-noise">
+    <div className="min-h-screen flex w-full bg-background bg-noise overflow-x-hidden">
+      {/* Skip link for keyboard users */}
+      <a href="#main-content" className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 bg-card px-3 py-2 rounded-xl shadow-soft text-sm">
+        Pular para o conteúdo
+      </a>
       {/* Sidebar — desktop / tablet */}
       <aside className="hidden md:flex w-64 lg:w-72 shrink-0 flex-col border-r border-border bg-sidebar/80 backdrop-blur sticky top-0 h-screen">
         <BrandHeader />
@@ -73,15 +77,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       {/* Mobile top bar */}
-      <div className="md:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between px-4 py-3 bg-background/85 backdrop-blur border-b border-border">
-        <Link to="/" className="font-serif text-lg tracking-tight">
+      <div className="md:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between px-4 py-3 bg-background/85 backdrop-blur border-b border-border safe-area-pt">
+        <Link to="/" className="font-serif text-lg tracking-tight active:scale-[0.98] transition-transform">
           Florescer <span className="text-[var(--gold)]">2027</span>
         </Link>
         <div className="flex items-center gap-1">
-          <button onClick={toggle} className="p-2 rounded-full hover:bg-secondary">
+          <button
+            onClick={toggle}
+            aria-label={theme === "light" ? "Ativar modo noite" : "Ativar modo dia"}
+            className="h-11 w-11 grid place-items-center rounded-full hover:bg-secondary active:bg-secondary active:scale-95 transition"
+          >
             {theme === "light" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
           </button>
-          <button onClick={() => setOpen(true)} className="p-2 rounded-full hover:bg-secondary">
+          <button
+            onClick={() => setOpen(true)}
+            aria-label="Abrir menu"
+            className="h-11 w-11 grid place-items-center rounded-full hover:bg-secondary active:bg-secondary active:scale-95 transition"
+          >
             <Menu className="h-5 w-5" />
           </button>
         </div>
@@ -119,27 +131,44 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </div>
       )}
 
-      <main className="flex-1 min-w-0 pt-16 md:pt-0 pb-20 md:pb-0">
+      <main id="main-content" className="flex-1 min-w-0 pt-[calc(env(safe-area-inset-top)+3.75rem)] md:pt-0 pb-[calc(env(safe-area-inset-bottom)+5rem)] md:pb-0">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-10 py-6 sm:py-10 animate-bloom">
           {children}
         </div>
       </main>
 
       {/* Mobile bottom nav */}
-      <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-background/90 backdrop-blur border-t border-border">
-        <div className="grid grid-cols-5 px-1 py-1.5 safe-area-pb">
+      <nav
+        aria-label="Navegação principal"
+        className="md:hidden fixed bottom-0 inset-x-0 z-40 bg-background/90 backdrop-blur border-t border-border"
+      >
+        <div className="grid grid-cols-5 gap-1 px-2 pt-1.5 safe-area-pb">
           {bottomNav.map(({ to, label, icon: Icon }) => {
             const active = to === "/" ? path === "/" : path.startsWith(to);
             return (
               <Link
                 key={to}
                 to={to}
-                className={`flex flex-col items-center gap-0.5 py-1.5 rounded-xl transition ${
-                  active ? "text-[var(--gold)]" : "text-muted-foreground"
-                }`}
+                aria-current={active ? "page" : undefined}
+                aria-label={label}
+                className="relative flex flex-col items-center justify-center gap-0.5 py-2 rounded-2xl transition-all active:scale-95"
               >
-                <Icon className="h-5 w-5" strokeWidth={1.6} />
-                <span className="text-[10px] font-medium">{label}</span>
+                <span
+                  className={`grid place-items-center h-9 w-12 rounded-2xl transition-all ${
+                    active
+                      ? "bg-secondary text-foreground shadow-soft"
+                      : "text-muted-foreground"
+                  }`}
+                >
+                  <Icon className="h-5 w-5" strokeWidth={1.6} />
+                </span>
+                <span
+                  className={`text-[10px] font-medium leading-none ${
+                    active ? "text-foreground" : "text-muted-foreground"
+                  }`}
+                >
+                  {label}
+                </span>
               </Link>
             );
           })}
