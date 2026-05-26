@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import {
-  CalendarDays, ChevronLeft, ChevronRight, Plus, Trash2, Check, Search, X, Clock, Repeat,
+  CalendarDays, ChevronLeft, ChevronRight, Plus, Trash2, Check, Search, X, Clock, Repeat, Download,
 } from "lucide-react";
 import { PageHeader, Card } from "@/components/AppShell";
 import { NotificationsCard } from "@/components/NotificationsCard";
+import { exportMonthSummary } from "@/lib/exportPdf";
 import {
   useAgenda, ymd, fromYmd, isToday, eventsOn, isDone, toggleDone,
   type AgendaEvent, type Recurrence, type EventKind,
