@@ -19,6 +19,7 @@ import { Route as HabitosRouteImport } from './routes/habitos'
 import { Route as FinanceiroRouteImport } from './routes/financeiro'
 import { Route as EstudosRouteImport } from './routes/estudos'
 import { Route as DiarioRouteImport } from './routes/diario'
+import { Route as ComoUsarRouteImport } from './routes/como-usar'
 import { Route as BrainDumpRouteImport } from './routes/brain-dump'
 import { Route as AgendaRouteImport } from './routes/agenda'
 import { Route as IndexRouteImport } from './routes/index'
@@ -73,6 +74,11 @@ const DiarioRoute = DiarioRouteImport.update({
   path: '/diario',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComoUsarRoute = ComoUsarRouteImport.update({
+  id: '/como-usar',
+  path: '/como-usar',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BrainDumpRoute = BrainDumpRouteImport.update({
   id: '/brain-dump',
   path: '/brain-dump',
@@ -93,6 +99,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/brain-dump': typeof BrainDumpRoute
+  '/como-usar': typeof ComoUsarRoute
   '/diario': typeof DiarioRoute
   '/estudos': typeof EstudosRoute
   '/financeiro': typeof FinanceiroRoute
@@ -108,6 +115,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/brain-dump': typeof BrainDumpRoute
+  '/como-usar': typeof ComoUsarRoute
   '/diario': typeof DiarioRoute
   '/estudos': typeof EstudosRoute
   '/financeiro': typeof FinanceiroRoute
@@ -124,6 +132,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agenda': typeof AgendaRoute
   '/brain-dump': typeof BrainDumpRoute
+  '/como-usar': typeof ComoUsarRoute
   '/diario': typeof DiarioRoute
   '/estudos': typeof EstudosRoute
   '/financeiro': typeof FinanceiroRoute
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agenda'
     | '/brain-dump'
+    | '/como-usar'
     | '/diario'
     | '/estudos'
     | '/financeiro'
@@ -156,6 +166,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agenda'
     | '/brain-dump'
+    | '/como-usar'
     | '/diario'
     | '/estudos'
     | '/financeiro'
@@ -171,6 +182,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agenda'
     | '/brain-dump'
+    | '/como-usar'
     | '/diario'
     | '/estudos'
     | '/financeiro'
@@ -187,6 +199,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgendaRoute: typeof AgendaRoute
   BrainDumpRoute: typeof BrainDumpRoute
+  ComoUsarRoute: typeof ComoUsarRoute
   DiarioRoute: typeof DiarioRoute
   EstudosRoute: typeof EstudosRoute
   FinanceiroRoute: typeof FinanceiroRoute
@@ -271,6 +284,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DiarioRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/como-usar': {
+      id: '/como-usar'
+      path: '/como-usar'
+      fullPath: '/como-usar'
+      preLoaderRoute: typeof ComoUsarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brain-dump': {
       id: '/brain-dump'
       path: '/brain-dump'
@@ -299,6 +319,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgendaRoute: AgendaRoute,
   BrainDumpRoute: BrainDumpRoute,
+  ComoUsarRoute: ComoUsarRoute,
   DiarioRoute: DiarioRoute,
   EstudosRoute: EstudosRoute,
   FinanceiroRoute: FinanceiroRoute,

@@ -9,6 +9,7 @@ import { Card } from "@/components/AppShell";
 import { useLocalState } from "@/lib/storage";
 import { useAgenda, eventsOn, isDone, toggleDone, ymd, fromYmd } from "@/lib/agenda";
 import { JardimFlorescer } from "@/components/JardimFlorescer";
+import { ContextualTip } from "@/components/ContextualTip";
 
 export const Route = createFileRoute("/")({
   component: Home,
@@ -56,6 +57,9 @@ function Home() {
 
   return (
     <div className="space-y-6">
+      <ContextualTip tipKey="home" title="Dica gentil">
+        Tudo é salvo no seu aparelho automaticamente. Visite <strong>Como usar</strong> no menu para um passeio completo.
+      </ContextualTip>
       {/* Hero */}
       <div className="rounded-[2rem] gradient-cream border border-border shadow-petal p-6 sm:p-10 relative overflow-hidden">
         <div className="absolute -top-10 -right-10 h-48 w-48 rounded-full bg-[var(--gold)]/15 blur-3xl" />
