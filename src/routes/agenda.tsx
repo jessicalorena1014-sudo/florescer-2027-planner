@@ -67,6 +67,13 @@ function Agenda() {
           >
             Hoje
           </button>
+          <button
+            onClick={() => exportMonthSummary(events, cursor)}
+            title="Exportar resumo do mês em PDF"
+            className="px-3 h-9 rounded-full text-xs uppercase tracking-[0.2em] bg-card border border-border hover:bg-secondary flex items-center gap-1.5"
+          >
+            <Download className="h-3.5 w-3.5" /> PDF
+          </button>
         </div>
 
         <div className="flex items-center gap-2 ml-auto">
