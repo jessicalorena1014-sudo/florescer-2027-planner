@@ -181,6 +181,8 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           })}
         </div>
       </nav>
+
+      <TutorialOverlay />
     </div>
   );
 }
