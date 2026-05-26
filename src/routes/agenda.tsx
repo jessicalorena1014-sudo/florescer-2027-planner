@@ -4,6 +4,7 @@ import {
   CalendarDays, ChevronLeft, ChevronRight, Plus, Trash2, Check, Search, X, Clock, Repeat,
 } from "lucide-react";
 import { PageHeader, Card } from "@/components/AppShell";
+import { NotificationsCard } from "@/components/NotificationsCard";
 import {
   useAgenda, ymd, fromYmd, isToday, eventsOn, isDone, toggleDone,
   type AgendaEvent, type Recurrence, type EventKind,
@@ -105,6 +106,10 @@ function Agenda() {
           </button>
         )}
       </Card>
+
+      <NotificationsCard />
+
+
 
       {filtered ? (
         <SearchResults

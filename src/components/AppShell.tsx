@@ -5,6 +5,8 @@ import {
   BookOpen, ListChecks, Notebook, Brain, Sparkles, Moon, Sun, Menu, X,
 } from "lucide-react";
 import { useTheme } from "@/lib/storage";
+import { useAgenda } from "@/lib/agenda";
+import { useNotifSettings, useScheduleNotifications } from "@/lib/notifications";
 
 const nav = [
   { to: "/", label: "Início", icon: Home },
@@ -34,6 +36,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const path = useRouterState({ select: (s) => s.location.pathname });
   const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
+  const [events] = useAgenda();
+  const [notifSettings] = useNotifSettings();
+  useScheduleNotifications(events, notifSettings);
 
   return (
     <div className="min-h-screen flex w-full bg-background bg-noise">
