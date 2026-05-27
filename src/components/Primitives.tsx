@@ -58,7 +58,8 @@ export function CheckList({ storageKey, placeholder = "Adicionar item..." }: { s
           <span className={`flex-1 text-sm ${it.done ? "line-through text-muted-foreground" : ""}`}>{it.text}</span>
           <button
             onClick={() => setItems(items.filter((x) => x.id !== it.id))}
-            className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition"
+            aria-label="Excluir item"
+            className="h-9 w-9 grid place-items-center rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 md:opacity-0 md:group-hover:opacity-100 transition"
           >
             <Trash2 className="h-3.5 w-3.5" />
           </button>

@@ -376,7 +376,11 @@ function DayList({ date, events, onToggle, onEdit, onRemove, large = false }: {
                 <span className="capitalize">{ev.kind === "task" ? "tarefa" : ev.kind === "event" ? "evento" : "nota"}</span>
               </div>
             </div>
-            <button onClick={() => onRemove(ev.id)} className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive transition">
+            <button
+              onClick={() => onRemove(ev.id)}
+              aria-label="Excluir"
+              className="h-9 w-9 grid place-items-center rounded-full text-muted-foreground hover:text-destructive hover:bg-destructive/10 md:opacity-0 md:group-hover:opacity-100 transition"
+            >
               <Trash2 className="h-4 w-4" />
             </button>
           </div>
