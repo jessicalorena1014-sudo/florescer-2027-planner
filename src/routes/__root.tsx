@@ -10,6 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 import { AppShell } from "@/components/AppShell";
+import { useHydrated } from "@/lib/useHydrated";
 
 function NotFoundComponent() {
   return (
@@ -115,16 +116,20 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const hydrated = useHydrated();
 
   if (typeof window !== "undefined") {
     // Register PWA service worker (guarded against preview/iframe contexts).
     import("@/lib/pwa").then((m) => m.registerPWA());
   }
 
+  // Gate the route Outlet until the client has hydrated so that pages relying
+  // on `new Date()`, locale formatting, or `localStorage` never produce a
+  // server/client hydration mismatch (the planner is fully client-stateful).
   return (
     <QueryClientProvider client={queryClient}>
       <AppShell>
-        <Outlet />
+        {hydrated ? <Outlet /> : <div className="min-h-[40vh]" aria-hidden />}
       </AppShell>
     </QueryClientProvider>
   );
